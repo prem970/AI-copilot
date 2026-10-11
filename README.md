@@ -5,7 +5,7 @@ A real account-based prototype for uploading health documents, reviewing extract
 ## Start on this Windows machine
 
 The virtual environment, frontend packages, and portable MySQL installation have been prepared. Run from the project root in PowerShell:
-hello
+
 ```powershell
 $env:PYTHONPATH = 'backend'
 .venv/Scripts/python.exe scripts/bootstrap_mysql.py
