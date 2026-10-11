@@ -37,6 +37,7 @@ dist-ssr/
 
 # Environment variables & secrets
 .env
+env
 .env.local
 .env.production
 *.pem

@@ -46,7 +46,7 @@ export interface Message {
   id: string; role: 'user' | 'assistant'; created_at: string
   data: { question?: string; status?: string; answer?: string; language: string; citations?: Citation[]; provider_model?: string; safety_disclaimer?: string }
 }
-export interface Trend { test_name: string; unit: string | null; history: { date: string; value: number; source_document_id: string }[] }
+export interface Trend { test_name: string; unit: string | null; history: { date: string; value: number; source_document_id: string; reference_low?: number | null; reference_high?: number | null }[] }
 export class ApiError extends Error {
   constructor(public status: number, message: string) { super(message) }
 }

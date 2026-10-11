@@ -250,7 +250,8 @@ def trends(patient: Patient = PatientDep, db: Session = DB):
     groups = {}
     for row in db.scalars(confirmed_query(Observation, patient.id).where(Observation.effective_at.is_not(None), Observation.value_numeric.is_not(None)).order_by(Observation.effective_at)):
         key = (row.display_name, row.unit)
-        groups.setdefault(key, []).append({'date': row.effective_at.date().isoformat(), 'value': row.value_numeric,
+        date_str = row.effective_at.date().isoformat() if hasattr(row.effective_at, 'date') else str(row.effective_at)[:10]
+        groups.setdefault(key, []).append({'date': date_str, 'value': row.value_numeric,
             'unit': row.unit, 'reference_low': row.reference_low, 'reference_high': row.reference_high, 'source_document_id': row.document_id})
     return [{'test_name': name, 'unit': unit, 'history': history} for (name, unit), history in groups.items()]
 

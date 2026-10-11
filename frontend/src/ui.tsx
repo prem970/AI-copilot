@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { Component, type ReactNode } from 'react'
 import type { Citation } from './api'
 
 export function ErrorNotice({ error }: { error: unknown }) {
@@ -19,4 +19,15 @@ export function Sources({ citations }: { citations: Citation[] }) {
 }
 export function dateLabel(value: string | null) {
   return value ? new Date(value.slice(0, 10) + 'T00:00:00').toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : 'Date not recorded'
+}
+
+export class ErrorBoundary extends Component<{ children: ReactNode; fallback?: ReactNode }, { hasError: boolean }> {
+  state = { hasError: false }
+  static getDerivedStateFromError() { return { hasError: true } }
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback ?? <Empty>This section encountered an issue and could not be displayed.</Empty>
+    }
+    return this.props.children
+  }
 }
